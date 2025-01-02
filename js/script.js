@@ -302,9 +302,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event listener for pressing Enter key to update the graph
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
+            // Remove focus from any currently focused element
+            document.activeElement.blur();
+            
+            // Trigger the chart update
             updateCharts();
         }
     });
+    
+    
+    
 
     // Event listener to select all text in input fields when focused
     document.querySelectorAll('input[type="text"], input[type="number"]').forEach(input => {

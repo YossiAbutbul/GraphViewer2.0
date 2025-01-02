@@ -47,9 +47,8 @@ h1 {
     grid-area: header;
     font-family: 'Inter', sans-serif; /* Changed to Inter font */
     font-size: 3.52em;
-    font-weight: 700; /* Keep the same weight */
-    margin: 25px 0;
-    margin-bottom: 25px;
+    font-weight: 800; /* Keep the same weight */
+    margin: 25px;
     font-optical-sizing: auto;
 }
 
