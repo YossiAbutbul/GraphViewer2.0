@@ -66,7 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             options: {
                 animation: {
-                    duration: 800, // animations duratrion in ms
+                    duration: 500, // animations duratrion in ms
+                    easing: 'easeOutCubic',
                 },
                 responsive: true,
                 plugins: {
