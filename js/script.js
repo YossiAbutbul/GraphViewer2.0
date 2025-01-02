@@ -31,16 +31,16 @@ document.addEventListener('DOMContentLoaded', () => {
         // Extract the RGB part
         const rgbPart = hex.length === 6 ? hex : hex.slice(0, 6);
     
-        // Calculate the alpha value for 0.5 opacity
-        const alphaHex = Math.round(0.5 * 255).toString(16).padStart(2, '0');
+        // Calculate the alpha value for 0.3 opacity
+        const alphaHex = Math.round(0.3 * 255).toString(16).padStart(2, '0');
     
         // Return the new hex color with updated alpha
         return `#${rgbPart}${alphaHex}`;
     }
     
 
-    const chartBgColorLeft = 'rgba(36, 171, 174, 0.5)';   
-    const chartBorderColorLeft = 'rgba(36, 171, 174, 1)';       
+    const chartBgColorLeft = 'rgba(0, 194, 155, 0.5)';   
+    const chartBorderColorLeft = 'rgba(0, 194, 155, 1)';       
 
     const chartBgColorRight = 'rgba(63, 166, 146, 0.5)';    
     const chartBorderColorRight = 'rgba(63, 166, 146, 1)';       
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     backgroundColor: backgroundColor,
                     borderColor: borderColor,
                     borderWidth: 3,
-                    pointRadius: 1,
+                    pointRadius: 1.5,
                 }],
             },
             options: {
@@ -309,9 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateCharts();
         }
     });
-    
-    
-    
+
 
     // Event listener to select all text in input fields when focused
     document.querySelectorAll('input[type="text"], input[type="number"]').forEach(input => {

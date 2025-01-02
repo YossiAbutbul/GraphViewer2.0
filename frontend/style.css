@@ -362,6 +362,16 @@ table th {
     background-color: var(--muted-foreground);
 }
 
+/* Sticky scroll between elements */
+/* .mainContainer {
+    scroll-snap-type: y mandatory;
+}
+
+.mainContainer > * {
+    scroll-snap-align: start;
+} */
+
+
 @media (max-width: 1880px) {
     .mainContainer {
         grid-template-areas: 
@@ -373,4 +383,22 @@ table th {
         overflow: auto; /* Make the main container scrollable */
     }
     
+}
+
+@media (max-width: 1180px){
+    #colorPickers{
+        flex-direction: column;
+        /* gap: 20px; */
+    }
+    .color-picker-container{
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+        /* align-content: left; */
+    }
+    .sidebar .card .form-group input {
+        height: 45px;
+        
+    }
+
 }
