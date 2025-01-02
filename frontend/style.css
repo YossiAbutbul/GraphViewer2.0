@@ -249,21 +249,28 @@ table td {
     width: 100%;
     border-radius: 0.2rem; /* Added rounded border on hover */
 }
+
 tbody tr:hover {
     background-color: var(--secondary);
 }
+
 table td, table th {
     border-right: none;
     border-left: none;
 }
+
 table td:nth-child(2) {
     text-align: center;
+    padding: 0 100px;
 }
+table td:nth-child(1){
+    font-weight: 600;
+}
+
 table th {
     font-size: 1.1em;
     padding: 10px;
     text-align: center; /* Align text to the right */
-    /* border: 1px solid var(--border); */
 }
 
 .color-picker-container {
@@ -355,7 +362,7 @@ table th {
 @media (max-width: 1880px) {
     .mainContainer {
         grid-template-areas: 
-            "header header"
+            "header header "
             "sidebar radar1"
             "sidebar radar2";
         grid-template-columns: 1fr 2fr; /* Adjust columns for smaller screens */
