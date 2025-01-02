@@ -225,6 +225,10 @@ input:focus {
     outline: none;
 }
 
+select:focus {
+    outline: none;
+}
+
 table {
     font-family: 'Geist', sans-serif;
     align-self: center;
