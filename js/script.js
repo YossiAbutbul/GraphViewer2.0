@@ -309,5 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this.select(); // Select the text inside the input field when focused
         });
     });
+
+    
       
 });
