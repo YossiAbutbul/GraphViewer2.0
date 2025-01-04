@@ -362,15 +362,11 @@ table th {
     background-color: var(--muted-foreground);
 }
 
-/* Sticky scroll between elements */
-/* .mainContainer {
-    scroll-snap-type: y mandatory;
-}
-
-.mainContainer > * {
-    scroll-snap-align: start;
+/* canvas{
+    cursor: pointer;
 } */
 
+/* Media queries */
 
 @media (max-width: 1880px) {
     .mainContainer {

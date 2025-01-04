@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const createRadarChart = (ctx, data, labels, title, backgroundColor, borderColor, suggestedMin, suggestedMax) => {
         const canvas = ctx.canvas;
         canvas.height = 600; // Set the canvas height
+    
         return new Chart(ctx, {
             type: 'radar',
             data: {
@@ -66,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             options: {
                 animation: {
-                    duration: 500, // animations duratrion in ms
+                    duration: 500, // animations duration in ms
                     easing: 'easeOutCubic',
                 },
                 responsive: true,
@@ -88,7 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             bottom: 30,   // Padding from bottom
                         },
                     },
-                    
                 },
                 scales: {
                     r: {
@@ -103,9 +103,50 @@ document.addEventListener('DOMContentLoaded', () => {
                         pointLabels: { color: 'rgba(26, 26, 26, 1)' },
                     },
                 },
+                onHover: (event, chartElement) => {
+                    const points = chartElement[0]; // Check if a point is hovered
+                    if (points) {
+                        canvas.style.cursor = 'pointer'; // Set cursor to pointer
+                    } else {
+                        canvas.style.cursor = 'default'; // Reset cursor to default
+                    }
+                },
             },
         });
     };
+    
+   
+    // Function to handle point click and show popup for value change
+    const handlePointClick = (event, chart) => {
+        const points = chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, false);
+        if (points.length) {
+            const point = points[0];
+            const datasetIndex = point.datasetIndex;
+            const index = point.index;
+            const currentValue = chart.data.datasets[datasetIndex].data[index];
+
+            const newValue = prompt('Enter new value:', currentValue);
+            if (newValue !== null) {
+                const parsedValue = parseFloat(newValue);
+                if (!isNaN(parsedValue)) {
+                    chart.data.datasets[datasetIndex].data[index] = parsedValue;
+                    chart.update();
+                } else {
+                    alert('Invalid input. Please enter a valid number.');
+                }
+            }
+        }
+    };
+
+    // Add event listeners to the radar charts for point click
+    document.getElementById('leftRadarChart').addEventListener('click', (event) => {
+        handlePointClick(event, azimuthGraph);
+    });
+
+    document.getElementById('rightRadarChart').addEventListener('click', (event) => {
+        handlePointClick(event, elevationGraph);
+    });
+    
 
     // Function to initialize radar charts with default values
     const initializeRadarCharts = () => {
