@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     backgroundColor: backgroundColor,
                     borderColor: borderColor,
                     borderWidth: 3,
-                    pointRadius: 1.5,
+                    pointRadius: 2,
                 }],
             },
             options: {
@@ -92,10 +92,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     tooltip: {
                         displayColors: false,
                         callbacks: {
+                            title: () => '',
                             label: (tooltipItem) => {
-                                // const label = tooltipItem.label; // Get the point label
+                                const label = tooltipItem.label; // Get the point label
                                 const value = tooltipItem.raw.toFixed(2);   // Get the data value
-                                return [`Value: ${value} [dBm]`];
+                                return [`Angle: ${label}`,`Value: ${value} [dBm]`];
                             }
                         }
                     },

@@ -360,11 +360,12 @@ table th {
 
 ::-webkit-scrollbar-thumb:hover {
     background-color: var(--muted-foreground);
+    cursor: grab;
+}
+::-webkit-scrollbar-thumb:active {
+    cursor: grabbing;
 }
 
-/* canvas{
-    cursor: pointer;
-} */
 
 /* Media queries */
 
