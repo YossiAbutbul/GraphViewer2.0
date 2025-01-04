@@ -10,6 +10,7 @@ Features
 - Interactive Graphs: Visualize antenna patterns with dynamic, responsive charts.
 - Color Customization: Adjust graph colors to enhance visual clarity.
 - Pattern Selection: Choose between different antenna patterns for analysis.
+- Click on point on the graph to change it's value.
 
 Getting Started
 ---------------
