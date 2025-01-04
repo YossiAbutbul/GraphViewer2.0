@@ -67,27 +67,37 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             options: {
                 animation: {
-                    duration: 500, // animations duration in ms
+                    duration: 500,
                     easing: 'easeOutCubic',
                 },
                 responsive: true,
                 plugins: {
                     legend: {
-                        display: false, // Disable the legend display
+                        display: false,
                     },
                     title: {
-                        display: true,  // Enable the title
-                        text: title,    // Title text
-                        color: 'rgba(26, 26, 26, 1)', // Title color
+                        display: true,
+                        text: title,
+                        color: 'rgba(26, 26, 26, 1)',
                         font: {
-                            family: 'Inter, sans-serif', // Title font family
-                            size: '24em',      // Title font size
-                            weight: '600', // Title font weight
+                            family: 'Inter, sans-serif',
+                            size: '24em',
+                            weight: '600',
                         },
                         padding: {
-                            top: 20,      // Padding from top
-                            bottom: 30,   // Padding from bottom
+                            top: 20,
+                            bottom: 30,
                         },
+                    },
+                    tooltip: {
+                        displayColors: false,
+                        callbacks: {
+                            label: (tooltipItem) => {
+                                // const label = tooltipItem.label; // Get the point label
+                                const value = tooltipItem.raw.toFixed(2);   // Get the data value
+                                return [`Value: ${value} [dBm]`];
+                            }
+                        }
                     },
                 },
                 scales: {
@@ -104,16 +114,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
                 },
                 onHover: (event, chartElement) => {
-                    const points = chartElement[0]; // Check if a point is hovered
-                    if (points) {
-                        canvas.style.cursor = 'pointer'; // Set cursor to pointer
-                    } else {
-                        canvas.style.cursor = 'default'; // Reset cursor to default
-                    }
+                    const points = chartElement[0];
+                    canvas.style.cursor = points ? 'pointer' : 'default';
                 },
             },
         });
     };
+    
     
    
     // Function to handle point click and show popup for value change
