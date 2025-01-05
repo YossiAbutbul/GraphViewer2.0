@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to create the radar chart
     const createRadarChart = (ctx, data, labels, title, backgroundColor, borderColor, suggestedMin, suggestedMax) => {
         const canvas = ctx.canvas;
-        canvas.height = 600; 
+        canvas.height = 500; 
     
         return new Chart(ctx, {
             type: 'radar',

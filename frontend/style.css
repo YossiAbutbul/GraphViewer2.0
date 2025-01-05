@@ -46,9 +46,9 @@ body {
 h1 {
     grid-area: header;
     font-family: 'Inter', sans-serif; /* Changed to Inter font */
-    font-size: 3.52em;
+    font-size: 2.6em;
     font-weight: 800; /* Keep the same weight */
-    margin: 25px;
+    margin: 10px 25px;
     font-optical-sizing: auto;
 }
 
@@ -248,6 +248,7 @@ table th {
 table td {
     font-size: 1em;
     padding: 10px;
+    padding-bottom: 5px;
     border-bottom: 1px solid var(--border);
     width: 100%;
     border-radius: 0.2rem; /* Added rounded border on hover */
@@ -272,7 +273,7 @@ table td:nth-child(1){
 
 table th {
     font-size: 1.1em;
-    padding: 10px;
+    padding: 5px;
     text-align: center; /* Align text to the right */
 }
 
@@ -326,6 +327,7 @@ table th {
 
 #azimuthColorPicker, #elevationColorPicker {
     border: none;
+    width: 50px;
 }
 
 #colorGraphHeaderLabel{
