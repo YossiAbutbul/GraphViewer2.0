@@ -24,8 +24,8 @@ To run GraphViewer 2.0 locally, follow these steps:
    cd GraphViewer2.0
 
 3. Open the Application:
-   - Locate the index.html file in the project directory.
-   - Open index.html in your preferred web browser to launch the application.
+   - Locate the GraphViewer2.html file in the project directory.
+   - Open GraphViewer2.html in your preferred web browser to launch the application.
 
 Usage
 -----
