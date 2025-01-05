@@ -395,6 +395,10 @@ table th {
         grid-template-rows: auto 1fr 1fr; /* Adjust rows for the new layout */
         overflow: auto; /* Make the main container scrollable */
     }
+    #azimuthColorPicker, #elevationColorPicker {
+        border: none;
+        width: 70px;
+    }
     
 }
 
@@ -418,6 +422,10 @@ table th {
 @media (min-width: 2000px){
     h1{
         font-size: 3.5em;
+    }
+    #azimuthColorPicker, #elevationColorPicker {
+        border: none;
+        width: 70px;
     }
     
     
