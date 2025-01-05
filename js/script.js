@@ -249,7 +249,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
 
-        
         const gridValuesElvaztion = getGridValues(elevationGraph);
         const gridValuesAzimuth = getGridValues(azimuthGraph);
 
@@ -270,10 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const min = scale.min; // Dynamically calculated minimum value
         const max = scale.max; // Dynamically calculated maximum value
-    
-        // console.log('Grid Min:', min);
-        // console.log('Grid Max:', max);
-    
+
         return { min, max };
     };
     
@@ -295,11 +291,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateCharts();
             } catch (error) {
                 console.error('Error reading file:', error);
+                alert('Error reading file. Please check the file format and try again.');
             }
         };
         reader.readAsText(file);
     };
 
+    
     const processAndSortElevationData = (measuredData) => {
         // Handle file format that starts from 0°
         console.log(measuredData.length);
@@ -337,18 +335,18 @@ document.addEventListener('DOMContentLoaded', () => {
             // elevation.push(measuredData[0].trim().split(/\s+/));
             let k = 0;
             for (let i = 0; i < 22; i++) {
-                elevation.push(measuredData[k].trim().split(/\s+/));
-                k += 12;
+            elevation.push(measuredData[k].trim().split(/\s+/));
+            k += 12;
             }
 
             // Sort the data by the second column
             let sortedData = elevation.sort((a, b) => {
-                return parseInt(parseFloat(a[1])) - parseInt(parseFloat(b[1]));
+            return parseInt(parseFloat(a[1])) - parseInt(parseFloat(b[1]));
             });
 
             const firstHalf = sortedData.slice(0, 12);
             let firstHalfSorted = firstHalf.sort((a, b) => {
-                return parseInt(parseFloat(b[0])) - parseInt(parseFloat(a[0]));
+            return parseInt(parseFloat(b[0])) - parseInt(parseFloat(a[0]));
             });
 
             const secondHalf = sortedData.slice(12, 24);
@@ -358,9 +356,8 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(finalElevationData);
 
             return finalElevationData;
-        }
-        else{
-            console.log('invalid data format');
+        } else {
+            console.log('Invalid data format');
         }
     }
         
