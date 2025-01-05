@@ -367,6 +367,20 @@ table th {
 ::-webkit-scrollbar-thumb:active {
     cursor: grabbing;
 }
+.notification {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    background-color: var(--accent);
+    color: var(--primary-foreground);
+    border-radius: 5px;
+    font-family: 'Geist', sans-serif;
+    font-size: 1em;
+    z-index: 1000;
+    opacity: 0.9;
+    
+}
 
 
 /* Media queries */

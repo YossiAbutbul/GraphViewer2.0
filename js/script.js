@@ -270,13 +270,24 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const fileContent = e.target.result;
                 const lines = fileContent.split('\n');
-                h_factor = parseFloat(lines[46].split(/\s+/)[6]);
-                v_factor = parseFloat(lines[47].split(/\s+/)[6]);
+                h_factor = parseFloat(lines[46]?.split(/\s+/)[6] || 0);
+                v_factor = parseFloat(lines[47]?.split(/\s+/)[6] || 0);
                 
                 const frequencyLine = lines.find(line => line.includes('Test Frequency'));
-                const testFrequency = parseFloat(frequencyLine.split(/\s+/)[2]);
-                console.log(`Test Frequency: ${testFrequency} MHz`);
-
+                if (frequencyLine) {
+                    const testFrequency = parseFloat(frequencyLine.split(/\s+/)[2]);
+                    const notification = document.createElement('div');
+                    notification.className = 'notification';
+                    notification.textContent = `Test Frequency: ${testFrequency} MHz`;
+                    document.body.appendChild(notification);
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 5000);
+                    console.log(`Test Frequency: ${testFrequency} MHz`);
+                } else {
+                    console.warn('Test Frequency line not found.');
+                }
+    
                 rawData = lines.slice(54).map(line => line.trim().split(/\s+/)); // Store raw data
                 elevationData = processAndSortElevationData(lines.slice(54));
                 console.log('Data processed successfully');
@@ -288,6 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         reader.readAsText(file);
     };
+    
 
     
     const processAndSortElevationData = (measuredData) => {
