@@ -301,31 +301,69 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const processAndSortElevationData = (measuredData) => {
-        const elevation = [];
-        elevation.push(measuredData[0].trim().split(/\s+/));
-        let k = 0;
-        for (let i = 0; i < 22; i++) {
-            elevation.push(measuredData[24 + k].trim().split(/\s+/));
-            k += 12;
+        // Handle file format that starts from 0°
+        console.log(measuredData.length);
+        if(measuredData.length === 289) {
+            console.log('Data starts from 0°');
+            const elevation = [];
+            elevation.push(measuredData[0].trim().split(/\s+/));
+            let k = 0;
+            for (let i = 0; i < 22; i++) {
+                elevation.push(measuredData[24 + k].trim().split(/\s+/));
+                k += 12;
+            }
+
+            // Sort the data by the second column
+            let sortedData = elevation.sort((a, b) => {
+                return parseInt(parseFloat(a[1])) - parseInt(parseFloat(b[1]));
+            });
+
+            const firstHalf = sortedData.slice(0, 12);
+            let firstHalfSorted = firstHalf.sort((a, b) => {
+                return parseInt(parseFloat(b[0])) - parseInt(parseFloat(a[0]));
+            });
+
+            const secondHalf = sortedData.slice(12, 24);
+            let finalElevationData = firstHalfSorted.concat(secondHalf);
+            finalElevationData.splice(0, 0, ['180', '180', '-70', '-70']);
+            console.log(finalElevationData);
+
+            return finalElevationData;
+        };
+        // Handle file format that strats from 15°
+        if(measuredData.length === 265) {
+            console.log('Data starts from 15°');
+            const elevation = [];
+            // elevation.push(measuredData[0].trim().split(/\s+/));
+            let k = 0;
+            for (let i = 0; i < 22; i++) {
+                elevation.push(measuredData[k].trim().split(/\s+/));
+                k += 12;
+            }
+
+            // Sort the data by the second column
+            let sortedData = elevation.sort((a, b) => {
+                return parseInt(parseFloat(a[1])) - parseInt(parseFloat(b[1]));
+            });
+
+            const firstHalf = sortedData.slice(0, 12);
+            let firstHalfSorted = firstHalf.sort((a, b) => {
+                return parseInt(parseFloat(b[0])) - parseInt(parseFloat(a[0]));
+            });
+
+            const secondHalf = sortedData.slice(12, 24);
+            let finalElevationData = firstHalfSorted.concat(secondHalf);
+            finalElevationData.splice(0, 0, ['180', '180', '-70', '-70']);
+            finalElevationData.splice(12, 0, ['0', '0', '-70', '-70']);
+            console.log(finalElevationData);
+
+            return finalElevationData;
         }
-
-        // Sort the data by the second column
-        let sortedData = elevation.sort((a, b) => {
-            return parseInt(parseFloat(a[1])) - parseInt(parseFloat(b[1]));
-        });
-
-        const firstHalf = sortedData.slice(0, 12);
-        let firstHalfSorted = firstHalf.sort((a, b) => {
-            return parseInt(parseFloat(b[0])) - parseInt(parseFloat(a[0]));
-        });
-
-        const secondHalf = sortedData.slice(12, 24);
-        let finalElevationData = firstHalfSorted.concat(secondHalf);
-        finalElevationData.splice(0, 0, ['180', '180', '-70', '-70']);
-        console.log(finalElevationData);
-
-        return finalElevationData;
-    };
+        else{
+            console.log('invalid data format');
+        }
+    }
+        
 
     // Initialize radar charts
     initializeRadarCharts();
