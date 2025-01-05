@@ -8,18 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let h_factor = 1;
     let v_factor = 1;
 
-    function rgbaToHex(rgba) {
-        const rgbaArray = rgba.match(/\d+/g); // Extract all numbers from the rgba string
-        const r = parseInt(rgbaArray[0]);
-        const g = parseInt(rgbaArray[1]);
-        const b = parseInt(rgbaArray[2]);
-        
-        // Ensure two digits for each RGB value
-        const toHex = (num) => num.toString(16).padStart(2, '0').toUpperCase();
-        
-        return "#" + toHex(r) + toHex(g) + toHex(b); // Return hex format
-    }
-
     function changeHexOpacity(hexColor) {
         // Validate and sanitize the input
         const hex = hexColor.replace('#', '');
