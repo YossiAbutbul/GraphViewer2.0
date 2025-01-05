@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
         azimuthGraph = createRadarChart(azimuthCtx, defaultData, defaultLabels, 'Azimuth' + (polariztion === 'vertical' ? ' (V. Polariztion)' : ' (H. Polariztion)') + ' at θ = ' + theta + '°', chartBgColorLeft, chartBorderColorLeft, minAzimuth, maxAzimuth);
 
         const rightCtx = document.getElementById('rightRadarChart').getContext('2d');
-        elevationGraph = createRadarChart(rightCtx, defaultData, defaultLabels, 'Elevation (V Polariztion)', chartBgColorRight, chartBorderColorRight, minAzimuth, maxAzimuth);
+        elevationGraph = createRadarChart(rightCtx, defaultData, defaultLabels, ('Elevation (V Polariztion)'), chartBgColorRight, chartBorderColorRight, minAzimuth, maxAzimuth);
     };
 
     // Function to update radar charts
@@ -272,6 +272,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const lines = fileContent.split('\n');
                 h_factor = parseFloat(lines[46].split(/\s+/)[6]);
                 v_factor = parseFloat(lines[47].split(/\s+/)[6]);
+                
+                const frequencyLine = lines.find(line => line.includes('Test Frequency'));
+                const testFrequency = parseFloat(frequencyLine.split(/\s+/)[2]);
+                console.log(`Test Frequency: ${testFrequency} MHz`);
 
                 rawData = lines.slice(54).map(line => line.trim().split(/\s+/)); // Store raw data
                 elevationData = processAndSortElevationData(lines.slice(54));
@@ -288,9 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const processAndSortElevationData = (measuredData) => {
         // Handle file format that starts from 0°
-        console.log(measuredData.length);
         if(measuredData.length === 289) {
-            console.log('Data starts from 0°');
             const elevation = [];
             elevation.push(measuredData[0].trim().split(/\s+/));
             let k = 0;
@@ -318,7 +320,6 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         // Handle file format that strats from 15°
         if(measuredData.length === 265) {
-            console.log('Data starts from 15°');
             const elevation = [];
             // elevation.push(measuredData[0].trim().split(/\s+/));
             let k = 0;
