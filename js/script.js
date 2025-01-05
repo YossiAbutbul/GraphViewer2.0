@@ -245,6 +245,15 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('max-ref-azimuth').value = gridValuesAzimuth.max;
         document.getElementById('min-ref-azimuth').value = gridValuesAzimuth.min;
 
+
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.textContent = `Test Frequency: ${testFrequency} MHz`;
+        document.body.appendChild(notification);
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
+
     };
 
     const getGridValues = (chart) => {
@@ -264,6 +273,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // Function to process file data
+    let testFrequency; // Declare testFrequency as a global variable
+
     const processFile = (file) => {
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -275,14 +286,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 const frequencyLine = lines.find(line => line.includes('Test Frequency'));
                 if (frequencyLine) {
-                    const testFrequency = parseFloat(frequencyLine.split(/\s+/)[2]);
+                    testFrequency = parseFloat(frequencyLine.split(/\s+/)[2]); // Assign to global variable
                     const notification = document.createElement('div');
                     notification.className = 'notification';
                     notification.textContent = `Test Frequency: ${testFrequency} MHz`;
                     document.body.appendChild(notification);
                     setTimeout(() => {
                         notification.remove();
-                    }, 5000);
+                    }, 3000);
                     console.log(`Test Frequency: ${testFrequency} MHz`);
                 } else {
                     console.warn('Test Frequency line not found.');

@@ -415,3 +415,10 @@ table th {
     }
 
 }
+@media (min-width: 2000px){
+    h1{
+        font-size: 3.5em;
+    }
+    
+    
+}
