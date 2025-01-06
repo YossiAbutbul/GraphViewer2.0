@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Data storage variables
     let rawData = [];
     let elevationData = [];
-    let h_factor = 1;
-    let v_factor = 1;
+    let h_factor = '';
+    let v_factor = '';
 
     function changeHexOpacity(hexColor) {
         // Validate and sanitize the input
@@ -417,6 +417,27 @@ document.addEventListener('DOMContentLoaded', () => {
             this.select(); // Select the text inside the input field when focused
         });
     });
+    // Function to generate a random hex color
+    const getRandomHexColor = () => {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    };
+
+    // Function to set random colors to color pickers
+    const setRandomColorsToColorPickers = () => {
+        const azimuthColorPicker = document.querySelector('#azimuthColorPicker');
+        const elevationColorPicker = document.querySelector('#elevationColorPicker');
+        
+        azimuthColorPicker.value = getRandomHexColor();
+        elevationColorPicker.value = getRandomHexColor();
+    };
+
+    // Set random colors to color pickers on page load
+    setRandomColorsToColorPickers();
 
     
       
