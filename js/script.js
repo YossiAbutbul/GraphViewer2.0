@@ -273,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // Function to process file data
-    let testFrequency; // Declare testFrequency as a global variable
+    let testFrequency; 
 
     const processFile = (file) => {
         const reader = new FileReader();
