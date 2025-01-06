@@ -381,6 +381,18 @@ table th {
     opacity: 0.9;
     
 }
+#copyRight {
+    position: sticky;
+    bottom: 10px;
+    left: 10px;
+    padding: 10px 20px;
+    color: var(--accent);
+    border-radius: 5px;
+    font-family: 'Geist', sans-serif;
+    font-size: 1em;
+    z-index: 1000;
+    opacity: 0.9;
+}
 
 
 /* Media queries */
