@@ -386,7 +386,7 @@ table th {
     bottom: 10px;
     left: 10px;
     padding: 10px 20px;
-    color: var(--accent);
+    color: var(--muted-foreground);
     border-radius: 5px;
     font-family: 'Geist', sans-serif;
     font-size: 1em;
@@ -425,7 +425,7 @@ table th {
         justify-content: space-between;
         /* align-content: left; */
     }
-    .sidebar .card .form-group input {
+    #azimuthColorPicker, #elevationColorPicker {
         height: 45px;
         
     }

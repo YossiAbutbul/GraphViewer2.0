@@ -173,6 +173,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const verticalData = azimuthData.map(row => parseFloat(row[3]) + v_factor);
         const elevationDataSorted = elevationData.map(row => parseFloat(row[3]) + v_factor);
 
+        const polarity = document.getElementById('polarity').value;
+        const inputValue = (polarity === 'vertical' ? v_factor : h_factor);
+        document.getElementById('factorValue').value = inputValue;
+
         const maxHorizontal = Math.max(...horizontalData);
         const maxVertical = Math.max(...verticalData);
         const maxElevation = Math.max(...elevationDataSorted);
