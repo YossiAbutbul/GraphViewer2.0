@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Data storage variables
     let rawData = [];
     let elevationData = [];
+    let elevation2Data = [];
     let h_factor = '';
     let v_factor = '';
 
@@ -35,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // Function to create the radar chart
-    const createRadarChart = (ctx, data, labels, title, backgroundColor, borderColor, suggestedMin, suggestedMax) => {
+    const createRadarChart = (ctx, data, labels, title, backgroundColor, borderColor, suggestedMin, suggestedMax, calFactor) => {
         const canvas = ctx.canvas;
         canvas.height = 500; 
     
@@ -74,7 +75,21 @@ document.addEventListener('DOMContentLoaded', () => {
                         },
                         padding: {
                             top: 20,
-                            bottom: 30,
+                            bottom: 10,
+                        },
+                    },
+                    subtitle: {
+                        display: true,
+                        text: 'Calibration Factor: ' + calFactor,
+                        color: 'rgba(75, 75, 75, 1)',
+                        font: {
+                            family: 'Inter, sans-serif',
+                            size: '16em',
+                            weight: '400',
+                        },
+                        padding: {
+                            top: 0,
+                            bottom: 10,
                         },
                     },
                     tooltip: {
@@ -156,10 +171,10 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(minAzimuth, maxAzimuth);
 
         const azimuthCtx = document.getElementById('leftRadarChart').getContext('2d');
-        azimuthGraph = createRadarChart(azimuthCtx, defaultData, defaultLabels, 'Azimuth' + (polariztion === 'vertical' ? ' (V. Polariztion)' : ' (H. Polariztion)') + ' at θ = ' + theta + '°', chartBgColorLeft, chartBorderColorLeft, minAzimuth, maxAzimuth);
+        azimuthGraph = createRadarChart(azimuthCtx, defaultData, defaultLabels, 'Azimuth' + (polariztion === 'vertical' ? ' (V. Polariztion)' : ' (H. Polariztion)') + ' at θ = ' + theta + '°', chartBgColorLeft, chartBorderColorLeft, minAzimuth, maxAzimuth, '');
 
         const rightCtx = document.getElementById('rightRadarChart').getContext('2d');
-        elevationGraph = createRadarChart(rightCtx, defaultData, defaultLabels, ('Elevation (V Polariztion)'), chartBgColorRight, chartBorderColorRight, minAzimuth, maxAzimuth);
+        elevationGraph = createRadarChart(rightCtx, defaultData, defaultLabels, ('Elevation (V Polariztion)'), chartBgColorRight, chartBorderColorRight, minAzimuth, maxAzimuth, '');
     };
 
     // Function to update radar charts
@@ -171,11 +186,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const thetaLabels = ['0°', '15°', '30°', '45°', '60°', '75°', '90°', '105°', '120°', '135°', '150°', '165°', '180°', '195°', '210°', '225°', '240°', '255°', '270°', '285°', '300°', '315°', '330°', '345°'];
         const horizontalData = azimuthData.map(row => parseFloat(row[2]) + h_factor);
         const verticalData = azimuthData.map(row => parseFloat(row[3]) + v_factor);
-        const elevationDataSorted = elevationData.map(row => parseFloat(row[3]) + v_factor);
 
-        // const polarity = document.getElementById('polarity').value;
-        // const inputValue = (polarity === 'vertical' ? v_factor : h_factor);
-        // document.getElementById('factorValue').value = inputValue;
+        const elevationType = document.getElementById('polarityElevation').value;
+        const elevationDataSorted = (elevationType === 'elvation1' ? elevationData.map(row => parseFloat(row[3]) + v_factor) : elevation2Data.map(row => parseFloat(row[3]) + v_factor));
+
+        // const elevationDataSorted = elevationData.map(row => parseFloat(row[3]) + v_factor); OLD CODE
 
         const maxHorizontal = Math.max(...horizontalData);
         const maxVertical = Math.max(...verticalData);
@@ -211,11 +226,11 @@ document.addEventListener('DOMContentLoaded', () => {
             leftCtx,
             polariztion === 'vertical' ? verticalData : horizontalData,
             thetaLabels,
-            'Azimuth' + (polariztion === 'vertical' ? ' (V. Polariztion)' : ' (H. Polariztion)') + ' at θ = ' + theta + '°', regabgBgColorAzimuth, rgbaBorderColortAzimuth, minRefAzimuth, maxRefAzimuth
+            'Azimuth' + (polariztion === 'vertical' ? ' (V. Polariztion)' : ' (H. Polariztion)') + ' at θ = ' + theta + '°', regabgBgColorAzimuth, rgbaBorderColortAzimuth, minRefAzimuth, maxRefAzimuth, (polariztion === 'vertical' ? v_factor : h_factor)
         );
 
         const rightCtx = document.getElementById('rightRadarChart').getContext('2d');
-        elevationGraph = createRadarChart(rightCtx, elevationDataSorted, thetaLabels, 'Elevation (V Polariztion)', rgbaBgColorElevation, rgbaBorderColortElevation, minRefElevation, maxRefElevation);
+        elevationGraph = createRadarChart(rightCtx, elevationDataSorted, thetaLabels, 'Elevation'+ (elevationType === 'elvation1'? ' 1 ' : ' 2 ') +'(V Polariztion)', rgbaBgColorElevation, rgbaBorderColortElevation, minRefElevation, maxRefElevation, v_factor);
 
         // Insert min max avg to the table
         // Validate and update azimuth power values
@@ -251,6 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         const notification = document.createElement('div');
+        
         notification.className = 'notification';
         notification.textContent = `Test Frequency: ${testFrequency} MHz`;
         document.body.appendChild(notification);
@@ -305,7 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
                 rawData = lines.slice(54).map(line => line.trim().split(/\s+/)); // Store raw data
                 elevationData = processAndSortElevationData(lines.slice(54));
-                // elevation2Data = processAndSortElevation2Data(lines.slice(54));
+                elevation2Data = processAndSortElevation2Data(lines.slice(54));
                 console.log('Data processed successfully');
                 updateCharts();
             } catch (error) {
@@ -377,66 +393,67 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Invalid data format');
         }
     }
+
 // ToDo: Add the function to process the elevation2 data
-    // const processAndSortElevation2Data = (measuredData) => {
-    //     // Handle file format that starts from 0°
-    //     if(measuredData.length === 289) {
-    //         const elevation2 = [];
-    //         elevation2.push(measuredData[0].trim().split(/\s+/));
-    //         let k = 0;
-    //         for (let i = 0; i < 22; i++) {
-    //             elevation2.push(measuredData[30 + k].trim().split(/\s+/));
-    //             k += 12;
-    //         }
+    const processAndSortElevation2Data = (measuredData) => {
+        // Handle file format that starts from 0°
+        if(measuredData.length === 289) {
+            const elevation2 = [];
+            elevation2.push(measuredData[0].trim().split(/\s+/));
+            let k = 0;
+            for (let i = 0; i < 22; i++) {
+                elevation2.push(measuredData[30 + k].trim().split(/\s+/));
+                k += 12;
+            }
 
-    //         // Sort the data by the second column
-    //         let sortedData = elevation2.sort((a, b) => {
-    //             return parseInt(parseFloat(a[1])) - parseInt(parseFloat(b[1]));
-    //         });
+            // Sort the data by the second column
+            let sortedData = elevation2.sort((a, b) => {
+                return parseInt(parseFloat(a[1])) - parseInt(parseFloat(b[1]));
+            });
 
-    //         const firstHalf = sortedData.slice(0, 12);
-    //         let firstHalfSorted = firstHalf.sort((a, b) => {
-    //             return parseInt(parseFloat(b[0])) - parseInt(parseFloat(a[0]));
-    //         });
+            const firstHalf = sortedData.slice(0, 12);
+            let firstHalfSorted = firstHalf.sort((a, b) => {
+                return parseInt(parseFloat(b[0])) - parseInt(parseFloat(a[0]));
+            });
 
-    //         const secondHalf = sortedData.slice(12, 24);
-    //         let finalElevationData = firstHalfSorted.concat(secondHalf);
-    //         finalElevationData.splice(0, 0, ['180', '180', '-70', '-70']);
-    //         console.log(finalElevationData);
+            const secondHalf = sortedData.slice(12, 24);
+            let finalElevationData = firstHalfSorted.concat(secondHalf);
+            finalElevationData.splice(0, 0, ['180', '180', '-70', '-70']);
+            console.log(finalElevationData);
 
-    //         return finalElevationData;
-    //     };
-    //     // Handle file format that strats from 15°
-    //     if(measuredData.length === 265) {
-    //         const elevation = [];
-    //         // elevation.push(measuredData[0].trim().split(/\s+/));
-    //         let k = 0;
-    //         for (let i = 0; i < 22; i++) {
-    //         elevation.push(measuredData[k].trim().split(/\s+/));
-    //         k += 12;
-    //         }
+            return finalElevationData;
+        };
+        // Handle file format that strats from 15°
+        if(measuredData.length === 265) {
+            const elevation = [];
+            // elevation.push(measuredData[0].trim().split(/\s+/));
+            let k = 6;
+            for (let i = 0; i < 22; i++) {
+            elevation.push(measuredData[k].trim().split(/\s+/));
+            k += 12;
+            }
 
-    //         // Sort the data by the second column
-    //         let sortedData = elevation.sort((a, b) => {
-    //         return parseInt(parseFloat(a[1])) - parseInt(parseFloat(b[1]));
-    //         });
+            // Sort the data by the second column
+            let sortedData = elevation.sort((a, b) => {
+            return parseInt(parseFloat(a[1])) - parseInt(parseFloat(b[1]));
+            });
 
-    //         const firstHalf = sortedData.slice(0, 12);
-    //         let firstHalfSorted = firstHalf.sort((a, b) => {
-    //         return parseInt(parseFloat(b[0])) - parseInt(parseFloat(a[0]));
-    //         });
+            const firstHalf = sortedData.slice(0, 12);
+            let firstHalfSorted = firstHalf.sort((a, b) => {
+            return parseInt(parseFloat(b[0])) - parseInt(parseFloat(a[0]));
+            });
 
-    //         const secondHalf = sortedData.slice(12, 24);
-    //         let finalElevationData = firstHalfSorted.concat(secondHalf);
-    //         finalElevationData.splice(0, 0, ['180', '180', '-70', '-70']);
-    //         finalElevationData.splice(12, 0, ['0', '0', '-70', '-70']);
-    //         console.log(finalElevationData);
+            const secondHalf = sortedData.slice(12, 24);
+            let finalElevationData = firstHalfSorted.concat(secondHalf);
+            finalElevationData.splice(0, 0, ['180', '180', '-70', '-70']);
+            finalElevationData.splice(12, 0, ['0', '0', '-70', '-70']);
+            console.log(finalElevationData);
 
-    //         return finalElevationData;
-    //     } else {
-    //         console.log('Invalid data format');
-    //     }
-    // }
+            return finalElevationData;
+        } else {
+            console.log('Invalid data format');
+        }
+    }
         
 
     // Initialize radar charts
