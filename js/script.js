@@ -173,9 +173,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const verticalData = azimuthData.map(row => parseFloat(row[3]) + v_factor);
         const elevationDataSorted = elevationData.map(row => parseFloat(row[3]) + v_factor);
 
-        const polarity = document.getElementById('polarity').value;
-        const inputValue = (polarity === 'vertical' ? v_factor : h_factor);
-        document.getElementById('factorValue').value = inputValue;
+        // const polarity = document.getElementById('polarity').value;
+        // const inputValue = (polarity === 'vertical' ? v_factor : h_factor);
+        // document.getElementById('factorValue').value = inputValue;
 
         const maxHorizontal = Math.max(...horizontalData);
         const maxVertical = Math.max(...verticalData);
@@ -305,6 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
                 rawData = lines.slice(54).map(line => line.trim().split(/\s+/)); // Store raw data
                 elevationData = processAndSortElevationData(lines.slice(54));
+                // elevation2Data = processAndSortElevation2Data(lines.slice(54));
                 console.log('Data processed successfully');
                 updateCharts();
             } catch (error) {
@@ -376,6 +377,66 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Invalid data format');
         }
     }
+// ToDo: Add the function to process the elevation2 data
+    // const processAndSortElevation2Data = (measuredData) => {
+    //     // Handle file format that starts from 0°
+    //     if(measuredData.length === 289) {
+    //         const elevation2 = [];
+    //         elevation2.push(measuredData[0].trim().split(/\s+/));
+    //         let k = 0;
+    //         for (let i = 0; i < 22; i++) {
+    //             elevation2.push(measuredData[30 + k].trim().split(/\s+/));
+    //             k += 12;
+    //         }
+
+    //         // Sort the data by the second column
+    //         let sortedData = elevation2.sort((a, b) => {
+    //             return parseInt(parseFloat(a[1])) - parseInt(parseFloat(b[1]));
+    //         });
+
+    //         const firstHalf = sortedData.slice(0, 12);
+    //         let firstHalfSorted = firstHalf.sort((a, b) => {
+    //             return parseInt(parseFloat(b[0])) - parseInt(parseFloat(a[0]));
+    //         });
+
+    //         const secondHalf = sortedData.slice(12, 24);
+    //         let finalElevationData = firstHalfSorted.concat(secondHalf);
+    //         finalElevationData.splice(0, 0, ['180', '180', '-70', '-70']);
+    //         console.log(finalElevationData);
+
+    //         return finalElevationData;
+    //     };
+    //     // Handle file format that strats from 15°
+    //     if(measuredData.length === 265) {
+    //         const elevation = [];
+    //         // elevation.push(measuredData[0].trim().split(/\s+/));
+    //         let k = 0;
+    //         for (let i = 0; i < 22; i++) {
+    //         elevation.push(measuredData[k].trim().split(/\s+/));
+    //         k += 12;
+    //         }
+
+    //         // Sort the data by the second column
+    //         let sortedData = elevation.sort((a, b) => {
+    //         return parseInt(parseFloat(a[1])) - parseInt(parseFloat(b[1]));
+    //         });
+
+    //         const firstHalf = sortedData.slice(0, 12);
+    //         let firstHalfSorted = firstHalf.sort((a, b) => {
+    //         return parseInt(parseFloat(b[0])) - parseInt(parseFloat(a[0]));
+    //         });
+
+    //         const secondHalf = sortedData.slice(12, 24);
+    //         let finalElevationData = firstHalfSorted.concat(secondHalf);
+    //         finalElevationData.splice(0, 0, ['180', '180', '-70', '-70']);
+    //         finalElevationData.splice(12, 0, ['0', '0', '-70', '-70']);
+    //         console.log(finalElevationData);
+
+    //         return finalElevationData;
+    //     } else {
+    //         console.log('Invalid data format');
+    //     }
+    // }
         
 
     // Initialize radar charts
