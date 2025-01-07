@@ -1,6 +1,7 @@
 GraphViewer 2.0
 ===============
-![image](https://github.com/user-attachments/assets/e8a136fe-37d2-4e3b-977d-d15ce2ec687f)
+![image](https://github.com/user-attachments/assets/44b46abb-06c1-4142-ae22-a691800afd7f)
+
 
 GraphViewer 2.0 is a web-based application designed to visualize antenna patterns through interactive graphs.
 The data is a .txt file from Howland anecohic chamber.
