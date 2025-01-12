@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
                     subtitle: {
                         display: true,
-                        text: 'Calibration Factor: ' + calFactor,
+                        text: 'Correction Factor: ' + calFactor,
                         color: 'rgba(75, 75, 75, 1)',
                         font: {
                             family: 'Inter, sans-serif',
@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(minAzimuth, maxAzimuth);
 
         const azimuthCtx = document.getElementById('leftRadarChart').getContext('2d');
-        azimuthGraph = createRadarChart(azimuthCtx, defaultData, defaultLabels, 'Azimuth' + (polariztion === 'vertical' ? ' (V. Polariztion)' : ' (H. Polariztion)') + ' at θ = ' + theta + '°', chartBgColorLeft, chartBorderColorLeft, minAzimuth, maxAzimuth, '');
+        azimuthGraph = createRadarChart(azimuthCtx, defaultData, defaultLabels, 'Azimuth' + (polariztion === 'vertical' ? ' (V Polariztion)' : ' (H Polariztion)') + ' at θ = ' + theta + '°', chartBgColorLeft, chartBorderColorLeft, minAzimuth, maxAzimuth, '');
 
         const rightCtx = document.getElementById('rightRadarChart').getContext('2d');
         elevationGraph = createRadarChart(rightCtx, defaultData, defaultLabels, ('Elevation (V Polariztion)'), chartBgColorRight, chartBorderColorRight, minAzimuth, maxAzimuth, '');
@@ -189,8 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const elevationType = document.getElementById('polarityElevation').value;
         const elevationDataSorted = (elevationType === 'elvation1' ? elevationData.map(row => parseFloat(row[3]) + v_factor) : elevation2Data.map(row => parseFloat(row[3]) + v_factor));
-
-        // const elevationDataSorted = elevationData.map(row => parseFloat(row[3]) + v_factor); OLD CODE
 
         const maxHorizontal = Math.max(...horizontalData);
         const maxVertical = Math.max(...verticalData);
@@ -226,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
             leftCtx,
             polariztion === 'vertical' ? verticalData : horizontalData,
             thetaLabels,
-            'Azimuth' + (polariztion === 'vertical' ? ' (V. Polariztion)' : ' (H. Polariztion)') + ' at θ = ' + theta + '°', regabgBgColorAzimuth, rgbaBorderColortAzimuth, minRefAzimuth, maxRefAzimuth, (polariztion === 'vertical' ? v_factor : h_factor)
+            'Azimuth' + (polariztion === 'vertical' ? ' (V Polariztion)' : ' (H Polariztion)') + ' at θ = ' + theta + '°', regabgBgColorAzimuth, rgbaBorderColortAzimuth, minRefAzimuth, maxRefAzimuth, (polariztion === 'vertical' ? v_factor : h_factor)
         );
 
         const rightCtx = document.getElementById('rightRadarChart').getContext('2d');
