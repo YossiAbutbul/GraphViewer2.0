@@ -1,48 +1,80 @@
-GraphViewer 2.0
-===============
-![image](https://github.com/user-attachments/assets/44b46abb-06c1-4142-ae22-a691800afd7f)
+# 📡 GraphViewer 2.0
 
+> **Web-based antenna pattern visualizer with interactive and customizable graphs**
 
-GraphViewer 2.0 is a web-based application designed to visualize antenna patterns through interactive graphs.
+![Graph Screenshot](https://github.com/user-attachments/assets/44b46abb-06c1-4142-ae22-a691800afd7f)
 
-The data is a .txt file from Howland anecohic chamber.
+**GraphViewer 2.0** is a lightweight and intuitive web application designed to visualize antenna patterns through interactive charts. The data source is a `.txt` file generated from the Howland Anechoic Chamber.
 
-Features
---------
+---
 
-- Interactive Graphs: Visualize antenna patterns with dynamic, responsive charts.
--  Pattern Selection: Choose between different antenna patterns for analysis.
-- Click on point on the graph to change it's value.
-- Color Customization: Adjust graph colors to enhance visual clarity.
+## ✨ Features
 
-Getting Started
----------------
+- 🎯 **Interactive Graphs**  
+  Explore antenna patterns with smooth, responsive visualizations.
 
-To run GraphViewer 2.0 locally, follow these steps:
+- 🔁 **Pattern Selection**  
+  Easily switch between different antenna patterns via dropdown.
 
-1. Clone the Repository:
-   git clone https://github.com/YossiAbutbul/GraphViewer2.0.git
+- 🖱️ **Point Editing**  
+  Click any point on the graph to update its value dynamically.
 
-2. Navigate to the Project Directory:
-   cd GraphViewer2.0
+- 🎨 **Color Customization**  
+  Change graph colors for better contrast and visual clarity.
 
-3. Open the Application:
-   - Locate the GraphViewer2.html file in the project directory.
-   - Open GraphViewer2.html in your preferred web browser to launch the application.
+---
 
-Usage
------
+## 🚀 Getting Started
 
-- Selecting Patterns: Use the dropdown menu to select the desired antenna pattern.
-- Customizing Colors: Click on the color picker to change the graph's color scheme.
-- Viewing Graphs: Interact with the graph to analyze different aspects of the antenna pattern.
+To run the application locally:
 
-Contributing
-------------
+### 1. Clone the repository
 
-Contributions are welcome! Please fork the repository and create a pull request with your enhancements.
+```bash
+git clone https://github.com/YossiAbutbul/GraphViewer2.0.git
+```
 
-Contact
--------
+### 2. Navigate to the project directory
 
-For questions or feedback, please open an issue in the repository or contact the author directly.
+```bash
+cd GraphViewer2.0
+```
+
+### 3. Launch the application
+
+- Locate the `GraphViewer2.html` file in the project folder.
+- Open it in your preferred web browser.
+
+> ✅ No server setup required. Works entirely in the browser.
+
+---
+
+## 🛠️ Usage Guide
+
+- **Pattern Selection**:  
+  Use the dropdown to switch between available antenna data sets.
+
+- **Customize Colors**:  
+  Use the color picker to adjust the visual style of the graph.
+
+- **Edit Values**:  
+  Click any point on the graph to input a new value interactively.
+
+---
+
+## 🤝 Contributing
+
+We welcome community contributions!
+
+1. Fork the repository
+2. Create a new branch for your feature or fix
+3. Submit a pull request with a clear description
+
+---
+
+## 📬 Contact
+
+For bugs, feature requests, or general feedback:
+
+- 📂 [Open an issue on GitHub](https://github.com/YossiAbutbul/GraphViewer2.0/issues)
+- 📧 Or reach out to the author directly via GitHub
